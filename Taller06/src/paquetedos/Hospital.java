@@ -29,17 +29,20 @@ Considerandos:
     private Ciudad ciudad;
     private int nespecialidades;
     private Medicos[] medicos;
-    private Enfermeros enfermeros;
+    private Enfermeros[] enfermeros;
     private double totalsueldos;
     private String direccion;
-    
-    public Hospital(){
+
+    public Hospital() {
     }
 
-    public Hospital(String n, int num, String dir) {
+    public Hospital(String n,Ciudad c, int num, String dir, Medicos[] m, Enfermeros[] e) {
         nombre = n;
+        ciudad = c;
         nespecialidades = num;
         direccion = dir;
+        medicos = m;
+        enfermeros = e;
 
     }
 
@@ -59,11 +62,11 @@ Considerandos:
         return medicos;
     }
 
-    public Enfermeros obtenerEnfermeros() {
+    public Enfermeros[] obtenerEnfermeros() {
         return enfermeros;
     }
 
-    public double obtenerTotalsueldos() {
+    public double obtenerSueldos() {
         return totalsueldos;
     }
 
@@ -87,14 +90,20 @@ Considerandos:
         this.medicos = medicos;
     }
 
-    public void establecerEnfermeros(Enfermeros enfermeros) {
+    public void establecerEnfermeros(Enfermeros[] enfermeros) {
         this.enfermeros = enfermeros;
     }
 
-    public void CalcularTotalsueldos() {
-        int suma;
-        enfermeros.obtenerSueldo();
+    public void CalcularSueldos(Medicos[] md, Enfermeros[] ef) {
 
+        double suma = 0;
+        for (int i = 0; i < md.length; i++) {
+            suma = suma + md[i].obtenerSueldo();
+        }
+        for (int i = 0; i < ef.length; i++) {
+            suma = suma + ef[i].obtenerSueldo();
+        }
+        totalsueldos = suma;
     }
 
     public void establecerDireccion(String direccion) {
@@ -105,19 +114,33 @@ Considerandos:
         String mensaje = String.format("HOSPITAL %S\n"
                 + "Dirección: %s\nCiudad: %s \n"
                 + "Provincia: %s\n"
-                + "Número de especialidades: %d\n"
-                + "Listado de médicos\n"
-                + "- %s - sueldo: %.2f - %s\n"
-                + "- %s - sueldo: %.2f - %s\n"
-                + "- %s - sueldo: %.2f - %s\n"
-                + "- %s - sueldo: %.2f - %s\n"
-                + "\n"
-                + "Listado de enfermeros(as)\n"
-                + "- %s - sueldo: %.2f - %s\n"
-                + "- %s - sueldo: %.2f - %s\n"
-                + "- %s - sueldo: %.2f - %s\n"
-                + "\n"
-                + "Total de sueldos a pagar por mes: %.2f", medicos);
+                + "Número de especialidades: %d\n", obtenerNombre(),
+                obtenerDireccion(), ciudad.nombre, ciudad.provincia,
+                obtenerNespecialidades());
+        mensaje = String.format("%sListado de médicos\n", mensaje);
+        for (int i = 0; i < obtenerMedicos().length; i++) {
+            //- Richard Obrien - sueldo: 1000 - Pediatría
+            mensaje = String.format("%s - %s - sueldo: %.2f - %s\n",
+                    mensaje,
+                    obtenerMedicos()[i].obtenerNombre(),
+                    obtenerMedicos()[i].obtenerSueldo(),
+                    obtenerMedicos()[i].obtenerEspecialidad());
+        }
+
+        mensaje = String.format("%sListado de enfermeros(as)\n", mensaje);
+
+        for (int i = 0; i < obtenerEnfermeros().length; i++) {
+            //- Richard Obrien - sueldo: 1000 - Pediatría
+            mensaje = String.format("%s - %s - sueldo: %.2f - %s\n",
+                    mensaje,
+                    obtenerEnfermeros()[i].obtenerNombre(),
+                    obtenerEnfermeros()[i].obtenerSueldo(),
+                    obtenerEnfermeros()[i].obtenerTipo());
+        }
+
+        mensaje = String.format("%s\nTotal de Sueldos a pagar: %.2f",
+                mensaje, obtenerSueldos());
+
 
         return mensaje;
     }

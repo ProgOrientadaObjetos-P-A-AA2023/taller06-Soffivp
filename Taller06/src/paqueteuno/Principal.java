@@ -5,6 +5,9 @@
 package paqueteuno;
 
 import java.util.Scanner;
+import paquetedos.Ciudad;
+import paquetedos.Enfermeros;
+
 import paquetedos.Hospital;
 import paquetedos.Medicos;
 
@@ -51,12 +54,11 @@ Considerandos:
         double sMed;
         double sEf;
 
-        Hospital h1 = new Hospital();
+        Hospital h1;
         Medicos md[];
+        Enfermeros ef[];
 
-        md = new Medicos[lim];
-
-
+        //md = new Medicos[lim];
         /*HOSPITAL ZARUMA
 Dirección: Barrio Central
 Ciudad: Zaruma 
@@ -76,37 +78,52 @@ Listado de enfermeros(as)
 Total de sueldos a pagar por mes: 13600*/
         System.out.println("Ingrese el nombre del hospital");
         nombre = entrada.nextLine();
-        System.out.println("Ingrese el barrio del hospital");
+        System.out.println("Ingrese la dirección del hospital");
         dir = entrada.nextLine();
-        entrada.nextLine();
         System.out.println("Ingrese la ciudad del hospital");
         ciudad = entrada.nextLine();
         System.out.println("Ingrese la provincia del hospital");
-        ciudad = entrada.nextLine();
+        provincia = entrada.nextLine();
         entrada.nextLine();
         System.out.println("Ingrese el número de especialidades del hospital");
         esp = entrada.nextInt();
         System.out.println("Ingrese el número de medicos a ingresar");
         lim = entrada.nextInt();
-        for (int i = 0; i < lim; i++) {
+        md = new Medicos[lim];
+        entrada.nextLine();
+
+        Ciudad cdd = new Ciudad(ciudad, provincia);
+        for (int i = 0; i < md.length; i++) {
             System.out.println("Ingrese el nombre del medico");
             nmed = entrada.nextLine();
             System.out.println("Ingrese el sueldo del medico");
             sMed = entrada.nextDouble();
             System.out.println("Ingrese la especialidad del medico");
             espMed = entrada.nextLine();
+            md[i] = new Medicos(nmed,sMed, espMed);
+            entrada.nextLine();
+
         }
         System.out.println("Ingrese el número de enfermeros/as a ingresar");
         lime = entrada.nextInt();
-        for (int i = 0; i < lim; i++) {
+        ef = new Enfermeros[lime];
+        entrada.nextLine();
+
+        for (int i = 0; i < ef.length; i++) {
             System.out.println("Ingrese el nombre del enfermero/a");
             nef = entrada.nextLine();
-           // h1.establecerNombre(entrada.nextLine());
+            // h1.establecerNombre(entrada.nextLine());
             System.out.println("Ingrese el sueldo del enfermero/a");
             sEf = entrada.nextDouble();
-            System.out.println("Ingrese el tipo de contrato (nombremiento o contrato) del enfermero/a");
+            System.out.println("Ingrese el tipo de contrato (nombramiento o contrato) del enfermero/a");
+            entrada.nextLine();
             tipoEf = entrada.nextLine();
+            ef[i] = new Enfermeros(nef, tipoEf, sEf);
         }
+        h1 = new Hospital(nombre, cdd, esp, dir, md, ef);
+
+        h1.CalcularSueldos(md, ef);
+        System.out.printf("%s\n", h1);
 
     }
 

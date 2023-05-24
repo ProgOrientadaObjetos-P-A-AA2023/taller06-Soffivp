@@ -17,10 +17,10 @@ public class Medicos {
     public Medicos() {
     }
 
-    public Medicos(String nom, String es, double s) {
-        this.nombre = nom;
-        this.especialidad = es;
-        this.sueldo = s;
+    public Medicos(String nom, double s, String es) {
+        nombre = nom;
+        sueldo = s;
+        especialidad = es;
     }
 
     public String obtenerNombre() {
@@ -46,7 +46,5 @@ public class Medicos {
     public void establecerSueldo(double sueldo) {
         this.sueldo = sueldo;
     }
-    
-
 
 }
