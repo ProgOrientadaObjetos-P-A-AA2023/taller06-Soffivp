@@ -111,7 +111,7 @@ Considerandos:
     }
 
     public String toString() {
-        String mensaje = String.format("HOSPITAL %S\n"
+        String mensaje = String.format("\nHOSPITAL %S\n"
                 + "Dirección: %s\nCiudad: %s \n"
                 + "Provincia: %s\n"
                 + "Número de especialidades: %d\n", obtenerNombre(),

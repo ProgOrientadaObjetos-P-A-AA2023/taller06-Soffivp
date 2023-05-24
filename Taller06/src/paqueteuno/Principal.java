@@ -84,7 +84,6 @@ Total de sueldos a pagar por mes: 13600*/
         ciudad = entrada.nextLine();
         System.out.println("Ingrese la provincia del hospital");
         provincia = entrada.nextLine();
-        entrada.nextLine();
         System.out.println("Ingrese el número de especialidades del hospital");
         esp = entrada.nextInt();
         System.out.println("Ingrese el número de medicos a ingresar");
@@ -99,9 +98,9 @@ Total de sueldos a pagar por mes: 13600*/
             System.out.println("Ingrese el sueldo del medico");
             sMed = entrada.nextDouble();
             System.out.println("Ingrese la especialidad del medico");
-            espMed = entrada.nextLine();
-            md[i] = new Medicos(nmed,sMed, espMed);
             entrada.nextLine();
+            espMed = entrada.nextLine();
+            md[i] = new Medicos(nmed, sMed, espMed);
 
         }
         System.out.println("Ingrese el número de enfermeros/as a ingresar");
